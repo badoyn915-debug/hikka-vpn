@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { X, Gauge, Play, ArrowDown, ArrowUp, Wifi, CheckCircle2, RotateCcw, Zap } from 'lucide-react';
+import { X, Gauge, Play, ArrowDown, ArrowUp, Wifi, RotateCcw } from 'lucide-react';
 
 export const SpeedtestModal: React.FC = () => {
   const { isSpeedtestOpen, setIsSpeedtestOpen, selectedServer } = useApp();
@@ -26,14 +26,12 @@ export const SpeedtestModal: React.FC = () => {
     setUploadSpeed(0);
     setCurrentDisplaySpeed(0);
 
-    // 1. Measure Ping
     setTimeout(() => {
       const p = selectedServer ? selectedServer.ping : 18;
       setPingVal(p);
       setJitterVal(1.2);
       setStage('download');
 
-      // 2. Measure Download Speed with fluid acceleration
       let dlTicks = 0;
       const targetDl = 780 + Math.random() * 160;
       const dlInterval = setInterval(() => {
@@ -48,7 +46,6 @@ export const SpeedtestModal: React.FC = () => {
           setCurrentDisplaySpeed(0);
           setStage('upload');
 
-          // 3. Measure Upload Speed
           let ulTicks = 0;
           const targetUl = 240 + Math.random() * 120;
           const ulInterval = setInterval(() => {
@@ -73,7 +70,7 @@ export const SpeedtestModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="liquid-glass rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-white/10 shadow-2xl relative text-center">
+      <div className="liquid-glass rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative text-center">
         
         {/* Close */}
         <button
@@ -84,25 +81,24 @@ export const SpeedtestModal: React.FC = () => {
         </button>
 
         {/* Header */}
-        <div className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 px-3 py-1 rounded-full mb-3">
-          <Gauge className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-1.5 text-xs font-mono text-white bg-white/10 border border-white/20 px-3 py-1 rounded-full mb-3">
+          <Gauge className="w-3.5 h-3.5 text-white" />
           <span>NETWORK SPEED BENCHMARK</span>
         </div>
 
         <h3 className="text-xl font-bold text-white mb-1">
           Тест скорости: {selectedServer.country} ({selectedServer.city})
         </h3>
-        <p className="text-xs text-slate-400 font-mono mb-6">
+        <p className="text-xs text-slate-300 font-mono mb-6">
           Узел: {selectedServer.code} • Канал: {selectedServer.bandwidth}
         </p>
 
         {/* Speedometer Gauge Display */}
         <div className="relative my-4 flex flex-col items-center justify-center">
           
-          <div className="relative w-56 h-56 rounded-full flex flex-col items-center justify-center liquid-glass border-2 border-white/10 shadow-[0_0_50px_rgba(0,242,254,0.1)]">
+          <div className="relative w-56 h-56 rounded-full flex flex-col items-center justify-center liquid-glass border-2 border-white/20 shadow-[0_0_50px_rgba(255,255,255,0.06)]">
             
-            {/* Stage Indicator Pill */}
-            <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-400 mb-1">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-white mb-1">
               {stage === 'idle' && 'ГОТОВ К ТЕСТУ'}
               {stage === 'ping' && 'ПРОВЕРКА ЗАДЕРЖКИ...'}
               {stage === 'download' && 'ТЕСТ СКАЧИВАНИЯ...'}
@@ -110,16 +106,14 @@ export const SpeedtestModal: React.FC = () => {
               {stage === 'done' && 'ТЕСТ ЗАВЕРШЁН'}
             </span>
 
-            {/* Live Speed Number */}
             <div className="text-4xl sm:text-5xl font-extrabold font-mono text-white tracking-tight">
               {stage === 'idle' ? '0.0' : currentDisplaySpeed.toFixed(1)}
             </div>
 
-            <span className="text-xs font-mono text-slate-400 mt-1">Mbps</span>
+            <span className="text-xs font-mono text-slate-300 mt-1">Mbps</span>
 
-            {/* Glowing Ring when Testing */}
             {(stage === 'download' || stage === 'upload') && (
-              <div className="absolute inset-0 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin" />
+              <div className="absolute inset-0 rounded-full border-2 border-white border-t-transparent animate-spin" />
             )}
           </div>
         </div>
@@ -127,41 +121,41 @@ export const SpeedtestModal: React.FC = () => {
         {/* Results Matrix */}
         <div className="grid grid-cols-3 gap-3 my-6">
           {/* Ping */}
-          <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/5 text-left">
-            <div className="flex items-center gap-1 text-[10px] font-mono text-slate-400 mb-1">
-              <Wifi className="w-3 h-3 text-sky-400" />
+          <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/10 text-left">
+            <div className="flex items-center gap-1 text-[10px] font-mono text-slate-300 mb-1">
+              <Wifi className="w-3 h-3 text-white" />
               <span>PING</span>
             </div>
-            <div className="text-base font-bold font-mono text-cyan-400">
+            <div className="text-base font-bold font-mono text-white">
               {pingVal ? `${pingVal} ms` : '—'}
             </div>
-            <div className="text-[9px] font-mono text-slate-500">
+            <div className="text-[9px] font-mono text-slate-400">
               Jitter: {jitterVal ? `${jitterVal} ms` : '—'}
             </div>
           </div>
 
           {/* Download */}
-          <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/5 text-left">
-            <div className="flex items-center gap-1 text-[10px] font-mono text-slate-400 mb-1">
-              <ArrowDown className="w-3 h-3 text-emerald-400" />
+          <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/10 text-left">
+            <div className="flex items-center gap-1 text-[10px] font-mono text-slate-300 mb-1">
+              <ArrowDown className="w-3 h-3 text-white" />
               <span>DOWNLOAD</span>
             </div>
-            <div className="text-base font-bold font-mono text-emerald-400">
+            <div className="text-base font-bold font-mono text-white">
               {downloadSpeed ? `${downloadSpeed} M` : '—'}
             </div>
-            <div className="text-[9px] font-mono text-slate-500">4K Ultra Ready</div>
+            <div className="text-[9px] font-mono text-slate-400">4K Ultra Ready</div>
           </div>
 
           {/* Upload */}
-          <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/5 text-left">
-            <div className="flex items-center gap-1 text-[10px] font-mono text-slate-400 mb-1">
-              <ArrowUp className="w-3 h-3 text-indigo-400" />
+          <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/10 text-left">
+            <div className="flex items-center gap-1 text-[10px] font-mono text-slate-300 mb-1">
+              <ArrowUp className="w-3 h-3 text-white" />
               <span>UPLOAD</span>
             </div>
-            <div className="text-base font-bold font-mono text-indigo-400">
+            <div className="text-base font-bold font-mono text-white">
               {uploadSpeed ? `${uploadSpeed} M` : '—'}
             </div>
-            <div className="text-[9px] font-mono text-slate-500">No Buffering</div>
+            <div className="text-[9px] font-mono text-slate-400">No Buffering</div>
           </div>
         </div>
 
@@ -169,13 +163,13 @@ export const SpeedtestModal: React.FC = () => {
         {stage === 'idle' || stage === 'done' ? (
           <button
             onClick={startTest}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-bold text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,242,254,0.3)] transition-all"
+            className="w-full py-3.5 rounded-xl bg-white hover:bg-slate-200 text-black font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all"
           >
             {stage === 'done' ? <RotateCcw className="w-4 h-4" /> : <Play className="w-4 h-4 fill-black" />}
             <span>{stage === 'done' ? 'Запустить тест повторно' : 'Начать тестирование'}</span>
           </button>
         ) : (
-          <div className="text-xs font-mono text-cyan-400 py-3.5 animate-pulse">
+          <div className="text-xs font-mono text-white py-3.5 animate-pulse">
             Тестирование соединения в процессе...
           </div>
         )}

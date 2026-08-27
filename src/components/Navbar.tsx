@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useApp } from '../context/AppContext';
-import { Shield, Send, User, Menu, X, Activity, Server, Cpu, CreditCard, HelpCircle, ExternalLink, Sparkles } from 'lucide-react';
+import { Shield, Send, Menu, X, Server, Cpu, CreditCard, Activity, HelpCircle, ExternalLink } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
-  const { currentView, setCurrentView, isConnected, isConnecting } = useApp();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -26,16 +24,8 @@ export const Navbar: React.FC = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    if (currentView !== 'landing') {
-      setCurrentView('landing');
-      setTimeout(() => {
-        const el = document.querySelector(href);
-        el?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      const el = document.querySelector(href);
-      el?.scrollIntoView({ behavior: 'smooth' });
-    }
+    const el = document.querySelector(href);
+    el?.scrollIntoView({ behavior: 'smooth' });
     setMobileMenuOpen(false);
   };
 
@@ -45,18 +35,17 @@ export const Navbar: React.FC = () => {
         <nav
           className={`relative rounded-2xl transition-all duration-300 px-4 sm:px-6 py-3.5 flex items-center justify-between ${
             isScrolled
-              ? 'bg-[#08090d]/85 backdrop-blur-xl border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+              ? 'bg-[#08090d]/90 backdrop-blur-xl border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
               : 'bg-[#0d0f17]/60 backdrop-blur-md border border-white/6 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
           }`}
         >
           {/* Brand Logo */}
-          <div
-            onClick={() => setCurrentView('landing')}
+          <a
+            href="#hero"
             className="flex items-center gap-3 cursor-pointer group select-none"
           >
-            <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500/20 to-blue-500/10 border border-cyan-500/30 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-[0_0_15px_rgba(0,242,254,0.15)]">
-              <Shield className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
-              <div className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative w-9 h-9 rounded-xl bg-white/5 border border-white/15 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
+              <Shield className="w-5 h-5 text-white transition-colors" />
             </div>
 
             <div className="flex flex-col">
@@ -64,7 +53,7 @@ export const Navbar: React.FC = () => {
                 <span className="text-base sm:text-lg font-extrabold tracking-wider text-white font-sans">
                   HIKKA
                 </span>
-                <span className="text-[10px] font-mono tracking-widest text-cyan-400 font-bold bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-500/30">
+                <span className="text-[10px] font-mono tracking-widest text-white font-bold bg-white/10 px-1.5 py-0.5 rounded border border-white/20">
                   VPN
                 </span>
               </div>
@@ -72,7 +61,7 @@ export const Navbar: React.FC = () => {
                 NEXT-GEN PRIVACY
               </span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-1 bg-white/[0.02] border border-white/[0.05] rounded-xl px-2 py-1">
@@ -81,61 +70,35 @@ export const Navbar: React.FC = () => {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="text-xs font-medium text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.04] transition-all duration-200"
+                className="text-xs font-medium text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-all duration-200"
               >
                 {item.label}
               </a>
             ))}
           </div>
 
-          {/* Action CTAs: Telegram Bot & Dashboard */}
+          {/* Action CTA: Telegram Bot */}
           <div className="hidden sm:flex items-center gap-3">
-            {/* Direct Telegram Bot Link */}
             <a
               href="https://t.me/HikkaVPNbot"
               target="_blank"
               rel="noopener noreferrer"
-              className="liquid-glass-interactive rounded-xl px-3.5 py-2 flex items-center gap-2 text-xs font-medium text-slate-200 hover:text-cyan-300 group"
+              className="bg-white hover:bg-slate-200 text-black font-bold rounded-xl px-4 py-2 flex items-center gap-2 text-xs transition-all duration-300 shadow-md group"
             >
-              <Send className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
-              <span className="font-mono">@HikkaVPNbot</span>
-              <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-slate-300" />
+              <Send className="w-3.5 h-3.5 fill-black text-black group-hover:translate-x-0.5 transition-transform" />
+              <span>@HikkaVPNbot</span>
+              <ExternalLink className="w-3 h-3 text-black/60" />
             </a>
-
-            {/* Dashboard Switcher Button */}
-            <button
-              onClick={() => setCurrentView(currentView === 'dashboard' ? 'landing' : 'dashboard')}
-              className={`rounded-xl px-4 py-2 flex items-center gap-2 text-xs font-semibold transition-all duration-300 relative overflow-hidden ${
-                currentView === 'dashboard'
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-black shadow-[0_0_20px_rgba(0,242,254,0.3)] font-bold'
-                  : 'liquid-glass text-white hover:border-cyan-500/40 hover:shadow-[0_0_15px_rgba(0,242,254,0.15)]'
-              }`}
-            >
-              <User className="w-3.5 h-3.5" />
-              <span>{currentView === 'dashboard' ? 'На главную' : 'Личный кабинет'}</span>
-              
-              {isConnected && currentView !== 'dashboard' && (
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#10b981]" />
-              )}
-            </button>
           </div>
 
           {/* Mobile Hamburger Button */}
           <div className="flex sm:hidden items-center gap-2">
             <button
-              onClick={() => setCurrentView(currentView === 'dashboard' ? 'landing' : 'dashboard')}
-              className="liquid-glass rounded-lg p-2 text-slate-300 hover:text-white"
-              title="Личный кабинет"
-            >
-              <User className="w-4 h-4 text-cyan-400" />
-            </button>
-
-            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="liquid-glass rounded-lg p-2 text-slate-300 hover:text-white"
+              className="liquid-glass rounded-lg p-2 text-white"
               aria-label="Меню"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5 text-white" />}
             </button>
           </div>
         </nav>
@@ -151,37 +114,26 @@ export const Navbar: React.FC = () => {
                     key={item.label}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className="flex items-center gap-2 text-xs font-medium text-slate-300 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04] active:bg-cyan-500/10 active:border-cyan-500/30"
+                    className="flex items-center gap-2 text-xs font-medium text-white p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08]"
                   >
-                    <Icon className="w-4 h-4 text-cyan-400" />
+                    <Icon className="w-4 h-4 text-white" />
                     <span>{item.label}</span>
                   </a>
                 );
               })}
             </div>
 
-            <div className="flex flex-col gap-2 pt-2 border-t border-white/10">
+            <div className="pt-2 border-t border-white/10">
               <a
                 href="https://t.me/HikkaVPNbot"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-xl bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 flex items-center justify-center gap-2 text-xs font-medium"
+                className="w-full py-3 rounded-xl bg-white hover:bg-slate-200 text-black font-bold flex items-center justify-center gap-2 text-xs shadow-lg"
               >
-                <Send className="w-3.5 h-3.5" />
+                <Send className="w-3.5 h-3.5 fill-black text-black" />
                 <span>Открыть @HikkaVPNbot</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
-
-              <button
-                onClick={() => {
-                  setCurrentView(currentView === 'dashboard' ? 'landing' : 'dashboard');
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-semibold flex items-center justify-center gap-2 text-xs shadow-lg"
-              >
-                <User className="w-3.5 h-3.5" />
-                <span>{currentView === 'dashboard' ? 'На главную страницу' : 'Личный кабинет'}</span>
-              </button>
             </div>
           </div>
         )}

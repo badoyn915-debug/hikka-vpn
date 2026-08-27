@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, ChevronDown, ChevronUp, Search, Smartphone, Monitor, Shield, Zap } from 'lucide-react';
+import { HelpCircle, ChevronDown, Search } from 'lucide-react';
 
 interface FaqItem {
   q: string;
@@ -56,14 +56,14 @@ export const FaqSection: React.FC = () => {
         
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 px-3 py-1 rounded-full mb-3">
-            <HelpCircle className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
+            <HelpCircle className="w-3.5 h-3.5 text-white" />
             <span>KNOWLEDGE BASE & SUPPORT</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Часто задаваемые вопросы
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2 font-light">
+          <p className="text-slate-300 text-sm sm:text-base mt-2 font-light">
             Ответы на популярные вопросы о протоколах, установке на устройства и безопасности.
           </p>
         </div>
@@ -76,7 +76,7 @@ export const FaqSection: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Поиск по вопросам (например: YouTube, протоколы, роутер, оплата)..."
-            className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/[0.05] transition-all backdrop-blur-md"
+            className="w-full bg-white/[0.04] border border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-white/30 focus:bg-white/[0.06] transition-all backdrop-blur-md"
           />
         </div>
 
@@ -89,7 +89,7 @@ export const FaqSection: React.FC = () => {
               <div
                 key={idx}
                 className={`liquid-glass rounded-2xl transition-all duration-200 border ${
-                  isOpen ? 'border-cyan-500/40 shadow-[0_0_20px_rgba(0,242,254,0.08)]' : 'border-white/6 hover:border-white/12'
+                  isOpen ? 'border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.06)]' : 'border-white/10 hover:border-white/20'
                 }`}
               >
                 <button
@@ -99,13 +99,13 @@ export const FaqSection: React.FC = () => {
                   <span className="text-sm sm:text-base font-semibold text-white font-sans">
                     {faq.q}
                   </span>
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-transform duration-200 shrink-0 ${isOpen ? 'bg-cyan-500/20 text-cyan-400 rotate-180' : 'bg-white/5 text-slate-400'}`}>
-                    <ChevronDown className="w-4 h-4" />
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-transform duration-200 shrink-0 ${isOpen ? 'bg-white/20 text-white rotate-180' : 'bg-white/5 text-slate-400'}`}>
+                    <ChevronDown className="w-4 h-4 text-white" />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light border-t border-white/5 animate-in fade-in duration-200">
+                  <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light border-t border-white/10 animate-in fade-in duration-200">
                     <p className="whitespace-pre-line">{faq.a}</p>
                   </div>
                 )}
@@ -115,13 +115,13 @@ export const FaqSection: React.FC = () => {
         </div>
 
         {/* Telegram Help Footer */}
-        <div className="mt-12 text-center text-xs text-slate-400">
+        <div className="mt-12 text-center text-xs text-slate-300">
           Остались вопросы? Напишите нам в Telegram-боте:{' '}
           <a
             href="https://t.me/HikkaVPNbot"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan-400 hover:text-cyan-300 underline font-mono"
+            className="text-white hover:underline font-mono font-bold"
           >
             @HikkaVPNbot
           </a>

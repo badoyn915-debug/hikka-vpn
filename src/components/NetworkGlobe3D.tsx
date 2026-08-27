@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useApp } from '../context/AppContext';
 import { ServerLocation } from '../types/vpn';
-import { Globe, Zap, Radio } from 'lucide-react';
+import { Radio } from 'lucide-react';
 
 interface TooltipData {
   x: number;
@@ -12,9 +12,8 @@ interface TooltipData {
 
 export const NetworkGlobe3D: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { servers, setSelectedServer, setCurrentView } = useApp();
+  const { servers } = useApp();
   const [hoveredTooltip, setHoveredTooltip] = useState<TooltipData | null>(null);
-  const [isInteractive, setIsInteractive] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -49,12 +48,12 @@ export const NetworkGlobe3D: React.FC = () => {
     // 1. Dark Base Globe Mesh
     const sphereGeo = new THREE.SphereGeometry(globeRadius, isMobile ? 32 : 48, isMobile ? 32 : 48);
     const sphereMat = new THREE.MeshPhongMaterial({
-      color: 0x07080c,
-      emissive: 0x020305,
-      specular: 0x1a243b,
-      shininess: 40,
+      color: 0x07080b,
+      emissive: 0x020304,
+      specular: 0x222630,
+      shininess: 30,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.94,
       wireframe: false
     });
     const baseGlobe = new THREE.Mesh(sphereGeo, sphereMat);
@@ -63,25 +62,13 @@ export const NetworkGlobe3D: React.FC = () => {
     // 2. Wireframe / Latitude Longitude Lines
     const wireGeo = new THREE.SphereGeometry(globeRadius * 1.002, 24, 16);
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x1e293b,
+      color: 0x333a4d,
       wireframe: true,
       transparent: true,
-      opacity: 0.35
+      opacity: 0.3
     });
     const wireGlobe = new THREE.Mesh(wireGeo, wireMat);
     globeGroup.add(wireGlobe);
-
-    // 3. Subtle Atmosphere Glow Ring
-    const atmosphereGeo = new THREE.RingGeometry(globeRadius * 1.02, globeRadius * 1.35, isMobile ? 32 : 64);
-    const atmosphereMat = new THREE.MeshBasicMaterial({
-      color: 0x00f2fe,
-      transparent: true,
-      opacity: 0.05,
-      side: THREE.DoubleSide
-    });
-    const atmosphere = new THREE.Mesh(atmosphereGeo, atmosphereMat);
-    atmosphere.rotation.x = Math.PI / 2;
-    scene.add(atmosphere);
 
     // Convert Lat/Lng to 3D Cartesian coordinates
     const latLngToVector3 = (lat: number, lng: number, radius: number): THREE.Vector3 => {
@@ -93,27 +80,27 @@ export const NetworkGlobe3D: React.FC = () => {
       return new THREE.Vector3(x, y, z);
     };
 
-    // 4. Server Nodes
+    // 3. Server Nodes
     const serverNodes: { mesh: THREE.Mesh; server: ServerLocation; pos: THREE.Vector3 }[] = [];
     const nodeGeometry = new THREE.SphereGeometry(0.024, 16, 16);
-    const nodeGlowGeo = new THREE.RingGeometry(0.028, 0.052, 16);
+    const nodeGlowGeo = new THREE.RingGeometry(0.028, 0.05, 16);
 
     servers.forEach((server) => {
       const pos = latLngToVector3(server.coordinates.lat, server.coordinates.lng, globeRadius * 1.01);
       
       const nodeMat = new THREE.MeshBasicMaterial({
-        color: server.isSpecialRussia ? 0x38bdf8 : 0x00f2fe
+        color: 0xffffff
       });
       const nodeMesh = new THREE.Mesh(nodeGeometry, nodeMat);
       nodeMesh.position.copy(pos);
       nodeMesh.userData = { server };
       globeGroup.add(nodeMesh);
 
-      // Glow halo ring facing outward
+      // Glow halo ring
       const haloMat = new THREE.MeshBasicMaterial({
-        color: server.isSpecialRussia ? 0x38bdf8 : 0x00f2fe,
+        color: 0xffffff,
         transparent: true,
-        opacity: 0.45,
+        opacity: 0.35,
         side: THREE.DoubleSide
       });
       const haloMesh = new THREE.Mesh(nodeGlowGeo, haloMat);
@@ -124,7 +111,7 @@ export const NetworkGlobe3D: React.FC = () => {
       serverNodes.push({ mesh: nodeMesh, server, pos });
     });
 
-    // 5. Connecting Arcs & Flowing Pulses
+    // 4. Connecting Arcs & Flowing Pulses
     const hubConnections: [string, string][] = [
       ['ru-msk-01', 'nl-ams-01'],
       ['ru-msk-01', 'de-fra-01'],
@@ -161,7 +148,6 @@ export const NetworkGlobe3D: React.FC = () => {
       const p1 = fromNode.pos;
       const p2 = toNode.pos;
       
-      // Calculate arc midpoint raised above surface
       const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
       const distance = p1.distanceTo(p2);
       const elevation = globeRadius + distance * 0.28;
@@ -171,9 +157,9 @@ export const NetworkGlobe3D: React.FC = () => {
       const points = curve.getPoints(isMobile ? 24 : 40);
       const curveGeo = new THREE.BufferGeometry().setFromPoints(points);
       const curveMat = new THREE.LineBasicMaterial({
-        color: 0x00f2fe,
+        color: 0xffffff,
         transparent: true,
-        opacity: 0.22
+        opacity: 0.18
       });
       const arcLine = new THREE.Line(curveGeo, curveMat);
       globeGroup.add(arcLine);
@@ -189,17 +175,13 @@ export const NetworkGlobe3D: React.FC = () => {
       });
     });
 
-    // 6. Lights
-    const ambientLight = new THREE.AmbientLight(0x0f172a, 1.2);
+    // 5. Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0x38bdf8, 1.5);
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
     dirLight1.position.set(5, 3, 5);
     scene.add(dirLight1);
-
-    const dirLight2 = new THREE.DirectionalLight(0x818cf8, 0.8);
-    dirLight2.position.set(-5, -2, -3);
-    scene.add(dirLight2);
 
     // Mouse Drag & Raycasting
     let isDragging = false;
@@ -209,7 +191,6 @@ export const NetworkGlobe3D: React.FC = () => {
 
     const handlePointerDown = (e: MouseEvent | TouchEvent) => {
       isDragging = true;
-      setIsInteractive(true);
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
       previousMousePosition = { x: clientX, y: clientY };
@@ -262,7 +243,6 @@ export const NetworkGlobe3D: React.FC = () => {
     window.addEventListener('touchmove', handlePointerMove, { passive: true });
     window.addEventListener('touchend', handlePointerUp);
 
-    // Resize Handler
     const handleResize = () => {
       if (!containerRef.current) return;
       const newWidth = containerRef.current.clientWidth;
@@ -273,17 +253,14 @@ export const NetworkGlobe3D: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // Animation Loop
     let animationFrameId: number;
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      // Smooth auto-rotation if not dragging
       if (!isDragging) {
         globeGroup.rotation.y += 0.0018;
       }
 
-      // Animate packet movements
       pulsePackets.forEach((p) => {
         p.progress += p.speed;
         if (p.progress > 1) p.progress = 0;
@@ -314,14 +291,10 @@ export const NetworkGlobe3D: React.FC = () => {
 
   return (
     <div className="relative w-full h-[460px] sm:h-[540px] lg:h-[620px] flex items-center justify-center select-none overflow-hidden">
-      {/* Three.js canvas container */}
       <div
         ref={containerRef}
         className="w-full h-full cursor-grab active:cursor-grabbing"
       />
-
-      {/* Subtle top/bottom glass gradient mask to blend into page */}
-      <div className="absolute inset-0 pointer-events-none bg-radial from-transparent via-transparent to-[#050505]/70" />
 
       {/* Liquid Glass Tooltip on Server Hover */}
       {hoveredTooltip && (
@@ -329,7 +302,7 @@ export const NetworkGlobe3D: React.FC = () => {
           className="absolute pointer-events-none z-30 transition-all duration-150 transform -translate-x-1/2 -translate-y-full mb-3"
           style={{ left: hoveredTooltip.x, top: hoveredTooltip.y }}
         >
-          <div className="liquid-glass rounded-xl p-3 shadow-2xl border border-cyan-500/30 min-w-[200px] backdrop-blur-xl">
+          <div className="liquid-glass rounded-xl p-3.5 shadow-2xl border border-white/20 min-w-[210px] backdrop-blur-xl">
             <div className="flex items-center justify-between gap-3 mb-1.5">
               <div className="flex items-center gap-2">
                 <span className="text-lg">{hoveredTooltip.server.flag}</span>
@@ -337,29 +310,29 @@ export const NetworkGlobe3D: React.FC = () => {
                   {hoveredTooltip.server.country}
                 </span>
               </div>
-              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-white bg-white/10 px-2 py-0.5 rounded-full border border-white/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 Online
               </span>
             </div>
 
-            <div className="flex items-center justify-between text-xs text-slate-300 border-t border-white/5 pt-2 mt-1">
+            <div className="flex items-center justify-between text-xs text-slate-300 border-t border-white/10 pt-2 mt-1">
               <span className="text-slate-400">Локация:</span>
-              <span className="font-mono text-slate-200">{hoveredTooltip.server.city}</span>
+              <span className="font-mono text-white">{hoveredTooltip.server.city}</span>
             </div>
 
             <div className="flex items-center justify-between text-xs text-slate-300 mt-1">
               <span className="text-slate-400">Latency:</span>
-              <span className="font-mono font-bold text-cyan-400">{hoveredTooltip.server.ping} ms</span>
+              <span className="font-mono font-bold text-white">{hoveredTooltip.server.ping} ms</span>
             </div>
 
             <div className="flex items-center justify-between text-xs text-slate-300 mt-1">
               <span className="text-slate-400">Канал:</span>
-              <span className="font-mono text-slate-200">{hoveredTooltip.server.bandwidth}</span>
+              <span className="font-mono text-white">{hoveredTooltip.server.bandwidth}</span>
             </div>
 
             {hoveredTooltip.server.isSpecialRussia && (
-              <div className="mt-2 text-[10px] text-cyan-300 bg-cyan-950/50 rounded px-1.5 py-0.5 border border-cyan-500/20 text-center">
+              <div className="mt-2 text-[10px] text-white bg-white/10 rounded px-1.5 py-0.5 border border-white/20 text-center font-mono">
                 🇷🇺 Full Work режим в РФ
               </div>
             )}
@@ -369,17 +342,17 @@ export const NetworkGlobe3D: React.FC = () => {
 
       {/* Interactive Legend Overlay */}
       <div className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-auto pointer-events-none z-10">
-        <div className="liquid-glass-subtle rounded-xl px-3.5 py-2.5 flex items-center justify-between sm:justify-start gap-4 border border-white/5 backdrop-blur-md">
-          <div className="flex items-center gap-2 text-xs text-slate-300">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00f2fe]" />
+        <div className="liquid-glass-subtle rounded-xl px-3.5 py-2.5 flex items-center justify-between sm:justify-start gap-4 border border-white/10 backdrop-blur-md">
+          <div className="flex items-center gap-2 text-xs text-white">
+            <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_6px_#ffffff]" />
             <span>10 Gbps Узлы</span>
           </div>
           <div className="flex items-center gap-2 text-xs text-slate-300">
-            <span className="w-2 h-2 rounded-full bg-sky-400" />
+            <span className="w-2 h-2 rounded-full bg-slate-400" />
             <span>РФ Full Work</span>
           </div>
-          <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-500">
-            <Radio className="w-3.5 h-3.5 text-cyan-400/60" />
+          <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400">
+            <Radio className="w-3.5 h-3.5 text-white/60" />
             <span>Вращайте мышкой</span>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ProtocolInfo } from '../types/vpn';
-import { Cpu, Send, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Cpu, Send, ArrowRight } from 'lucide-react';
 
 export const ProtocolsSection: React.FC = () => {
   const { protocols, selectedProtocol, setSelectedProtocol, showToast } = useApp();
@@ -15,27 +15,20 @@ export const ProtocolsSection: React.FC = () => {
     showToast('Протокол выбран', `Активный протокол изменён на ${proto.name}`, 'info');
   };
 
-  const getBadgeStyle = (badge: string) => {
-    if (badge === 'FAST' || badge === '10 GBPS') return 'text-emerald-400 bg-emerald-950/50 border-emerald-500/30';
-    if (badge === 'STEALTH' || badge === 'ANTI-DPI' || badge === 'RECOMMENDED') return 'text-cyan-400 bg-cyan-950/50 border-cyan-500/30';
-    if (badge === 'STABLE' || badge === 'SECURE') return 'text-blue-400 bg-blue-950/50 border-blue-500/30';
-    return 'text-purple-400 bg-purple-950/50 border-purple-500/30';
-  };
-
   return (
     <section id="protocols" className="py-24 relative overflow-hidden bg-black/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 px-3 py-1 rounded-full mb-3">
-            <Cpu className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
+            <Cpu className="w-3.5 h-3.5 text-white" />
             <span>MODERN ENCRYPTION & OBSCURITY</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Выбирай свой протокол
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2 font-light">
+          <p className="text-slate-300 text-sm sm:text-base mt-2 font-light">
             Каждый протокол оптимизирован под определённые задачи: от обхода глубокой фильтрации DPI до максимальной скорости 10 Gbps в играх и стриминге.
           </p>
         </div>
@@ -50,13 +43,13 @@ export const ProtocolsSection: React.FC = () => {
                 key={proto.id}
                 onClick={() => handleSelectProto(proto)}
                 className={`group liquid-glass-interactive rounded-2xl p-6 cursor-pointer flex flex-col justify-between transition-all duration-300 relative ${
-                  isSelected ? 'border-cyan-500/60 bg-cyan-950/25 shadow-[0_0_30px_rgba(0,242,254,0.15)]' : ''
+                  isSelected ? 'border-white/40 bg-white/[0.06] shadow-[0_0_25px_rgba(255,255,255,0.1)]' : ''
                 }`}
               >
                 {/* Popular Badge */}
                 {proto.isPopular && (
                   <div className="absolute -top-2.5 right-6 z-10">
-                    <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase text-cyan-300 bg-[#07131e] border border-cyan-400/50 px-2.5 py-0.5 rounded-full shadow">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase text-white bg-[#101318] border border-white/30 px-2.5 py-0.5 rounded-full shadow">
                       ★ Топ Выбор
                     </span>
                   </div>
@@ -66,15 +59,15 @@ export const ProtocolsSection: React.FC = () => {
                   {/* Top: Name & Shortcode */}
                   <div className="flex items-center justify-between gap-3 mb-3">
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
+                      <h3 className="text-lg font-bold text-white transition-colors">
                         {proto.name}
                       </h3>
-                      <span className="text-xs font-mono text-cyan-400 font-semibold">
+                      <span className="text-xs font-mono text-slate-300 font-semibold">
                         {proto.shortCode}
                       </span>
                     </div>
 
-                    <div className="w-9 h-9 rounded-xl bg-white/[0.03] border border-white/8 flex items-center justify-center text-slate-300 group-hover:text-cyan-300 group-hover:border-cyan-500/30 transition-all">
+                    <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-white transition-all">
                       <Cpu className="w-4 h-4" />
                     </div>
                   </div>
@@ -89,7 +82,7 @@ export const ProtocolsSection: React.FC = () => {
                     {proto.badges.map((b) => (
                       <span
                         key={b}
-                        className={`text-[10px] font-mono font-bold tracking-wider px-2 py-0.5 rounded border ${getBadgeStyle(b)}`}
+                        className="text-[10px] font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-white bg-white/5 border-white/15"
                       >
                         {b}
                       </span>
@@ -97,17 +90,17 @@ export const ProtocolsSection: React.FC = () => {
                   </div>
 
                   {/* Performance Indicators */}
-                  <div className="space-y-2.5 bg-black/30 rounded-xl p-3 border border-white/5 mb-5">
+                  <div className="space-y-2.5 bg-black/40 rounded-xl p-3 border border-white/10 mb-5">
                     
                     {/* Speed Bar */}
                     <div>
-                      <div className="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
+                      <div className="flex justify-between text-[11px] font-mono text-slate-300 mb-1">
                         <span>Скорость (Speed):</span>
-                        <span className="text-emerald-400 font-semibold">{proto.speedRating}%</span>
+                        <span className="text-white font-semibold">{proto.speedRating}%</span>
                       </div>
-                      <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                      <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
                         <div
-                          className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500"
+                          className="bg-white h-full rounded-full transition-all duration-500"
                           style={{ width: `${proto.speedRating}%` }}
                         />
                       </div>
@@ -115,13 +108,13 @@ export const ProtocolsSection: React.FC = () => {
 
                     {/* Stability Bar */}
                     <div>
-                      <div className="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
+                      <div className="flex justify-between text-[11px] font-mono text-slate-300 mb-1">
                         <span>Стабильность (Stability):</span>
-                        <span className="text-cyan-400 font-semibold">{proto.stabilityRating}%</span>
+                        <span className="text-white font-semibold">{proto.stabilityRating}%</span>
                       </div>
-                      <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                      <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
                         <div
-                          className="bg-gradient-to-r from-cyan-500 to-blue-400 h-full rounded-full transition-all duration-500"
+                          className="bg-white/90 h-full rounded-full transition-all duration-500"
                           style={{ width: `${proto.stabilityRating}%` }}
                         />
                       </div>
@@ -129,13 +122,13 @@ export const ProtocolsSection: React.FC = () => {
 
                     {/* Anti-DPI Bar */}
                     <div>
-                      <div className="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
+                      <div className="flex justify-between text-[11px] font-mono text-slate-300 mb-1">
                         <span>Обход DPI (Stealth):</span>
-                        <span className="text-indigo-400 font-semibold">{proto.antiDpiRating}%</span>
+                        <span className="text-white font-semibold">{proto.antiDpiRating}%</span>
                       </div>
-                      <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                      <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
                         <div
-                          className="bg-gradient-to-r from-indigo-500 to-purple-400 h-full rounded-full transition-all duration-500"
+                          className="bg-white/80 h-full rounded-full transition-all duration-500"
                           style={{ width: `${proto.antiDpiRating}%` }}
                         />
                       </div>
@@ -145,9 +138,9 @@ export const ProtocolsSection: React.FC = () => {
                 </div>
 
                 {/* Card Footer: Action linking to Telegram Bot */}
-                <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
                   <div className="text-slate-400 font-mono text-[11px]">
-                    Порт: <span className="text-slate-200">{proto.port}</span>
+                    Порт: <span className="text-white">{proto.port}</span>
                   </div>
 
                   <a
@@ -155,10 +148,10 @@ export const ProtocolsSection: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-1 font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900/80 px-2.5 py-1 rounded-lg border border-cyan-500/30 transition-all text-xs"
+                    className="flex items-center gap-1 font-bold text-black bg-white hover:bg-slate-200 px-2.5 py-1 rounded-lg transition-all text-xs shadow-sm"
                   >
-                    <Send className="w-3 h-3" />
-                    <span>Подключить в боте</span>
+                    <Send className="w-3 h-3 fill-black" />
+                    <span>В бот</span>
                     <ArrowRight className="w-3 h-3" />
                   </a>
                 </div>
@@ -168,16 +161,16 @@ export const ProtocolsSection: React.FC = () => {
         </div>
 
         {/* Protocol Deep-Dive Spec Panel */}
-        <div className="liquid-glass rounded-2xl p-6 sm:p-8 border border-cyan-500/20">
+        <div className="liquid-glass rounded-2xl p-6 sm:p-8 border border-white/15">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
             <div className="lg:col-span-8">
               <div className="flex items-center gap-2.5 mb-2">
-                <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
+                <span className="text-xs font-mono text-white uppercase tracking-wider font-semibold">
                   ИНТЕЛЛЕКТУАЛЬНЫЙ ВЫБОР
                 </span>
                 <span className="text-slate-600">•</span>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-slate-300 font-mono">
                   {activeProto.name}
                 </span>
               </div>
@@ -187,12 +180,12 @@ export const ProtocolsSection: React.FC = () => {
               <p className="text-sm text-slate-300 font-light leading-relaxed mb-4">
                 {activeProto.recommendedFor}
               </p>
-              <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-400">
+              <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-300">
                 <div>
-                  Шифрование: <span className="text-cyan-300">{activeProto.encryption}</span>
+                  Шифрование: <span className="text-white font-semibold">{activeProto.encryption}</span>
                 </div>
                 <div>
-                  Порты: <span className="text-cyan-300">{activeProto.port}</span>
+                  Порты: <span className="text-white font-semibold">{activeProto.port}</span>
                 </div>
               </div>
             </div>
@@ -202,7 +195,7 @@ export const ProtocolsSection: React.FC = () => {
                 href={`https://t.me/HikkaVPNbot?start=proto_${activeProto.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full lg:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(0,242,254,0.3)] flex items-center justify-center gap-2"
+                className="w-full lg:w-auto px-6 py-3 rounded-xl bg-white hover:bg-slate-200 text-black font-extrabold text-xs transition-all duration-300 shadow-md flex items-center justify-center gap-2"
               >
                 <Send className="w-3.5 h-3.5 fill-black" />
                 <span>Получить {activeProto.shortCode} в @HikkaVPNbot</span>
