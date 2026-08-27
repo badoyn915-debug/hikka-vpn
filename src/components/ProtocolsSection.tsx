@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ProtocolInfo } from '../types/vpn';
-import { Cpu, Zap, Shield, Lock, Layers, CheckCircle2, ArrowRight, Gauge, Radio } from 'lucide-react';
+import { Cpu, Send, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export const ProtocolsSection: React.FC = () => {
   const { protocols, selectedProtocol, setSelectedProtocol, showToast } = useApp();
@@ -44,7 +44,6 @@ export const ProtocolsSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {protocols.map((proto) => {
             const isSelected = selectedProtocol.id === proto.id;
-            const isCurrentActive = activeTab === proto.id;
 
             return (
               <div
@@ -145,23 +144,23 @@ export const ProtocolsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Card Footer: Tech Specs */}
+                {/* Card Footer: Action linking to Telegram Bot */}
                 <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
                   <div className="text-slate-400 font-mono text-[11px]">
                     Порт: <span className="text-slate-200">{proto.port}</span>
                   </div>
 
-                  <div className="flex items-center gap-1 font-medium text-cyan-400 text-xs">
-                    {isSelected ? (
-                      <span className="flex items-center gap-1 font-mono">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" /> Активен
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-1 group-hover:underline">
-                        Применить <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    )}
-                  </div>
+                  <a
+                    href={`https://t.me/HikkaVPNbot?start=proto_${proto.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-1 font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900/80 px-2.5 py-1 rounded-lg border border-cyan-500/30 transition-all text-xs"
+                  >
+                    <Send className="w-3 h-3" />
+                    <span>Подключить в боте</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
             );
@@ -199,13 +198,15 @@ export const ProtocolsSection: React.FC = () => {
             </div>
 
             <div className="lg:col-span-4 flex lg:justify-end">
-              <button
-                onClick={() => handleSelectProto(activeProto)}
-                className="w-full lg:w-auto px-6 py-3 rounded-xl bg-white/10 hover:bg-cyan-500 hover:text-black font-semibold text-xs transition-all duration-300 border border-white/10 hover:border-cyan-400 shadow-md flex items-center justify-center gap-2"
+              <a
+                href={`https://t.me/HikkaVPNbot?start=proto_${activeProto.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full lg:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(0,242,254,0.3)] flex items-center justify-center gap-2"
               >
-                <Zap className="w-3.5 h-3.5 text-cyan-400 group-hover:text-black" />
-                <span>Использовать {activeProto.shortCode}</span>
-              </button>
+                <Send className="w-3.5 h-3.5 fill-black" />
+                <span>Получить {activeProto.shortCode} в @HikkaVPNbot</span>
+              </a>
             </div>
 
           </div>

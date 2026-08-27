@@ -1,16 +1,9 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { NetworkGlobe3D } from './NetworkGlobe3D';
-import { ShieldCheck, Send, Zap, ChevronRight, CheckCircle2, Lock, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Send, Zap, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 export const Hero: React.FC = () => {
-  const { setCheckoutPlan, tariffs, setCurrentView, statusTelemetry } = useApp();
-
-  const handleConnectClick = () => {
-    const recommended = tariffs.find((t) => t.isPopular) || tariffs[0];
-    setCheckoutPlan(recommended);
-  };
-
   return (
     <section id="hero" className="relative min-h-[92vh] pt-28 sm:pt-36 pb-16 flex items-center overflow-hidden bg-glow-radial">
       {/* Background Subtle Tech Grid */}
@@ -50,17 +43,19 @@ export const Hero: React.FC = () => {
               VPN с поддержкой нескольких протоколов, серверов в разных странах и обходом ограничений доступа.
             </p>
 
-            {/* Action Buttons */}
+            {/* Action Buttons: Both leading to Telegram Bot */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
-              {/* Primary CTA */}
-              <button
-                onClick={handleConnectClick}
+              {/* Primary CTA -> Bot */}
+              <a
+                href="https://t.me/HikkaVPNbot?start=connect_vpn"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="relative group overflow-hidden rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-[#050505] font-bold px-7 py-3.5 text-sm flex items-center justify-center gap-2.5 transition-all duration-300 shadow-[0_0_25px_rgba(0,242,254,0.35)] hover:shadow-[0_0_35px_rgba(0,242,254,0.5)] active:scale-[0.98]"
               >
                 <Zap className="w-4 h-4 fill-current text-black" />
                 <span>Подключить VPN</span>
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              </a>
 
               {/* Secondary CTA: Telegram */}
               <a

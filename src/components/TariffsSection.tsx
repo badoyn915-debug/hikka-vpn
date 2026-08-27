@@ -1,10 +1,10 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { TariffPlan, CurrencyType } from '../types/vpn';
-import { CreditCard, Check, Zap, Sparkles, ShieldCheck, ArrowRight, Gift } from 'lucide-react';
+import { CurrencyType } from '../types/vpn';
+import { CreditCard, Zap, Sparkles, ShieldCheck, ArrowRight, Send } from 'lucide-react';
 
 export const TariffsSection: React.FC = () => {
-  const { tariffs, currency, setCurrency, setCheckoutPlan } = useApp();
+  const { tariffs, currency, setCurrency } = useApp();
 
   const currencies: { key: CurrencyType; symbol: string; label: string }[] = [
     { key: 'RUB', symbol: '₽', label: 'RUB (₽)' },
@@ -19,10 +19,6 @@ export const TariffsSection: React.FC = () => {
     if (curr === 'TON') return `${amount.toFixed(2)} TON`;
     if (curr === 'STARS') return `${amount} ⭐`;
     return `${amount}`;
-  };
-
-  const handleBuy = (plan: TariffPlan) => {
-    setCheckoutPlan(plan);
   };
 
   return (
@@ -126,19 +122,21 @@ export const TariffsSection: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Buy Button */}
-                <button
-                  onClick={() => handleBuy(plan)}
+                {/* Buy Button -> Leads directly to Telegram Bot */}
+                <a
+                  href={`https://t.me/HikkaVPNbot?start=plan_${plan.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-md ${
                     isFeatured
                       ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black shadow-[0_0_20px_rgba(0,242,254,0.3)] active:scale-[0.98]'
                       : 'bg-white/10 hover:bg-white/20 text-white border border-white/10 hover:border-cyan-500/40'
                   }`}
                 >
-                  <Zap className={`w-4 h-4 ${isFeatured ? 'fill-black text-black' : 'text-cyan-400'}`} />
-                  <span>Подключить {plan.title}</span>
+                  <Send className={`w-4 h-4 ${isFeatured ? 'text-black' : 'text-cyan-400'}`} />
+                  <span>Подключить в @HikkaVPNbot</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+                </a>
               </div>
             );
           })}
@@ -148,7 +146,7 @@ export const TariffsSection: React.FC = () => {
         <div className="mt-12 liquid-glass-subtle rounded-2xl p-5 border border-white/6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-cyan-400" />
-            <span>Мгновенная автоматическая активация ключа сразу после оплаты</span>
+            <span>Мгновенная выдача ключа прямо в Telegram-боте @HikkaVPNbot сразу после оплаты</span>
           </div>
           <div className="flex items-center gap-4 font-mono text-[11px] text-slate-400">
             <span>• СБП</span>

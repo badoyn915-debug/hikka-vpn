@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ServerLocation, RegionCategory } from '../types/vpn';
-import { Server, Activity, Wifi, Shield, ArrowRight, Check, Zap, Globe, Sparkles } from 'lucide-react';
+import { Wifi, Shield, ArrowRight, Check, Zap, Globe, Send, ExternalLink } from 'lucide-react';
 
 export const LocationsSection: React.FC = () => {
-  const { servers, setSelectedServer, selectedServer, testServerPing, setCurrentView, setActiveConfigServer } = useApp();
+  const { servers, setSelectedServer, selectedServer, testServerPing, setActiveConfigServer } = useApp();
   const [activeFilter, setActiveFilter] = useState<RegionCategory>('all');
   const [testingPingId, setTestingPingId] = useState<string | null>(null);
 
@@ -136,7 +136,7 @@ export const LocationsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Card Bottom: Ping, Bandwidth, Connect Action */}
+                {/* Card Bottom: Ping, Bandwidth, Connect Action to Bot */}
                 <div className="pt-3 border-t border-white/6 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {/* Ping Indicator Button */}
@@ -156,18 +156,18 @@ export const LocationsSection: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Select / Active Indicator */}
-                  <div className="flex items-center gap-1 text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
-                    {isSelected ? (
-                      <span className="text-xs font-mono text-cyan-400 flex items-center gap-1">
-                        <Check className="w-3.5 h-3.5" /> Выбран
-                      </span>
-                    ) : (
-                      <span className="text-xs text-slate-400 group-hover:text-cyan-300 flex items-center gap-0.5">
-                        Выбрать <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    )}
-                  </div>
+                  {/* Direct Bot Link */}
+                  <a
+                    href={`https://t.me/HikkaVPNbot?start=server_${server.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-1 text-xs font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900/80 px-2.5 py-1 rounded-lg border border-cyan-500/30 transition-all"
+                  >
+                    <Send className="w-3 h-3" />
+                    <span>В бот</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
             );
@@ -179,17 +179,20 @@ export const LocationsSection: React.FC = () => {
           <div className="flex items-center gap-3 text-xs text-slate-300 text-center sm:text-left">
             <Shield className="w-4 h-4 text-cyan-400 shrink-0" />
             <span>
-              Все серверы работают на RAM-дисках без постоянного хранилища. Логи активности не ведутся.
+              Все серверы работают на RAM-дисках без сохранения логов. Управление и ключи выдаются в Telegram.
             </span>
           </div>
 
-          <button
-            onClick={() => setCurrentView('dashboard')}
+          <a
+            href="https://t.me/HikkaVPNbot?start=servers_list"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 whitespace-nowrap"
           >
-            <span>Открыть панель подключения</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+            <Send className="w-3.5 h-3.5" />
+            <span>Получить список в @HikkaVPNbot</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
         </div>
 
       </div>
