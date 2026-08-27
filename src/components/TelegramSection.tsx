@@ -79,10 +79,10 @@ export const TelegramSection: React.FC = () => {
         reply = {
           id: 'bot-' + Date.now(),
           sender: 'bot',
-          text: '💳 Выберите тарифный план для подключения:\n\n⭐ 12 Месяцев — 120 ₽/мес (ХИТ)\n⭐ 6 Месяцев — 150 ₽/мес\n⭐ 1 Месяц — 190 ₽/мес\n\nОплата: СБП, Российские карты, TON, USDT, Telegram Stars.',
+          text: '💳 Выберите тарифный план для оформления:\n\n⭐ 12 Месяцев (Максимальная выгода)\n⭐ 6 Месяцев (Полугодовой VIP)\n⭐ 3 Месяца (Популярный)\n⭐ 1 Месяц (Базовый)\n\nОплата: СБП, Российские карты, TON, USDT, Telegram Stars.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           buttons: [
-            [{ text: '🚀 Выбрать 12 Месяцев (120 ₽/мес)', action: 'buy_12m' }]
+            [{ text: '🚀 Выбрать 12 Месяцев', action: 'buy_12m' }]
           ]
         };
       } else if (action === 'copy_key') {

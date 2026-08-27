@@ -1,24 +1,15 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { CurrencyType } from '../types/vpn';
-import { CreditCard, Zap, Sparkles, ShieldCheck, ArrowRight, Send } from 'lucide-react';
+import { CreditCard, Sparkles, ShieldCheck, ArrowRight, Send, Check } from 'lucide-react';
 
 export const TariffsSection: React.FC = () => {
-  const { tariffs, currency, setCurrency } = useApp();
+  const { tariffs } = useApp();
 
-  const currencies: { key: CurrencyType; symbol: string; label: string }[] = [
-    { key: 'RUB', symbol: '₽', label: 'RUB (₽)' },
-    { key: 'USDT', symbol: '$', label: 'USDT ($)' },
-    { key: 'TON', symbol: 'TON', label: 'TON' },
-    { key: 'STARS', symbol: '⭐', label: 'Stars' }
-  ];
-
-  const formatPrice = (amount: number, curr: CurrencyType) => {
-    if (curr === 'RUB') return `${amount} ₽`;
-    if (curr === 'USDT') return `$${amount.toFixed(2)}`;
-    if (curr === 'TON') return `${amount.toFixed(2)} TON`;
-    if (curr === 'STARS') return `${amount} ⭐`;
-    return `${amount}`;
+  const planDurations: Record<string, { subtitle: string; periodLabel: string }> = {
+    'plan-1m': { subtitle: 'Базовый период', periodLabel: '1 месяц доступа' },
+    'plan-3m': { subtitle: 'Популярный период', periodLabel: '3 месяца доступа' },
+    'plan-6m': { subtitle: 'Полугодовой VIP', periodLabel: '6 месяцев доступа' },
+    'plan-12m': { subtitle: 'Максимальная выгода', periodLabel: '12 месяцев доступа' }
   };
 
   return (
@@ -29,39 +20,21 @@ export const TariffsSection: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 px-3 py-1 rounded-full mb-3">
             <CreditCard className="w-3.5 h-3.5" />
-            <span>TRANSPARENT PRICING & INSTANT ACCESS</span>
+            <span>INSTANT TELEGRAM BOT PURCHASE</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Тарифные планы
           </h2>
           <p className="text-slate-400 text-sm sm:text-base mt-2 font-light">
-            Единый полный функционал на всех тарифах: все 14+ локаций, все протоколы (VLESS, SS-2022, WireGuard) и 10 Gbps безлимитная скорость.
+            Единый полный доступ ко всем 14+ локациям, всем протоколам и 10 Gbps скорости. Оформление и оплата производятся прямо в Telegram-боте.
           </p>
-
-          {/* Currency Selector Pill */}
-          <div className="inline-flex items-center gap-1 p-1 liquid-glass rounded-xl border border-white/10 mt-6">
-            {currencies.map((c) => (
-              <button
-                key={c.key}
-                onClick={() => setCurrency(c.key)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
-                  currency === c.key
-                    ? 'bg-cyan-500 text-black font-bold shadow-[0_0_12px_rgba(0,242,254,0.3)]'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                {c.label}
-              </button>
-            ))}
-          </div>
         </div>
 
-        {/* Tariffs Grid */}
+        {/* Tariffs Grid (Clean Plans without hardcoded price amounts) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {tariffs.map((plan) => {
             const isFeatured = !!plan.isPopular;
-            const priceMonthly = plan.pricePerMonth[currency];
-            const priceTotal = plan.totalPrice[currency];
+            const meta = planDurations[plan.id] || { subtitle: 'Подписка', periodLabel: plan.title };
 
             return (
               <div
@@ -83,29 +56,23 @@ export const TariffsSection: React.FC = () => {
                 )}
 
                 <div>
-                  {/* Card Title & Discount */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
+                  {/* Card Title & Duration Badge */}
+                  <div className="flex items-center justify-between gap-2 mb-2">
                     <h3 className="text-xl font-bold text-white">
                       {plan.title}
                     </h3>
-                    {plan.discountPercent && (
-                      <span className="text-[11px] font-mono font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                        -{plan.discountPercent}%
-                      </span>
-                    )}
+                    <span className="text-[11px] font-mono font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-500/30 px-2 py-0.5 rounded-full">
+                      {meta.subtitle}
+                    </span>
                   </div>
 
-                  {/* Pricing Display */}
+                  {/* Plan Info Badge */}
                   <div className="mb-6 pb-6 border-b border-white/8">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
-                        {formatPrice(priceMonthly, currency)}
-                      </span>
-                      <span className="text-xs text-slate-400 font-mono">/ мес</span>
+                    <div className="text-sm font-semibold text-slate-200 font-mono">
+                      {meta.periodLabel}
                     </div>
-
-                    <div className="text-xs text-slate-400 font-mono mt-1.5">
-                      Итого к оплате: <span className="text-slate-200">{formatPrice(priceTotal, currency)}</span>
+                    <div className="text-xs text-slate-400 mt-1">
+                      Стоимость и скидки рассчитываются в боте
                     </div>
                   </div>
 
@@ -122,7 +89,7 @@ export const TariffsSection: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Buy Button -> Leads directly to Telegram Bot */}
+                {/* Buy Button -> Directly in Telegram Bot */}
                 <a
                   href={`https://t.me/HikkaVPNbot?start=plan_${plan.id}`}
                   target="_blank"
@@ -134,7 +101,7 @@ export const TariffsSection: React.FC = () => {
                   }`}
                 >
                   <Send className={`w-4 h-4 ${isFeatured ? 'text-black' : 'text-cyan-400'}`} />
-                  <span>Подключить в @HikkaVPNbot</span>
+                  <span>Купить в @HikkaVPNbot</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -146,7 +113,7 @@ export const TariffsSection: React.FC = () => {
         <div className="mt-12 liquid-glass-subtle rounded-2xl p-5 border border-white/6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-cyan-400" />
-            <span>Мгновенная выдача ключа прямо в Telegram-боте @HikkaVPNbot сразу после оплаты</span>
+            <span>Оплата и мгновенная выдача ключей — прямо в Telegram-боте @HikkaVPNbot</span>
           </div>
           <div className="flex items-center gap-4 font-mono text-[11px] text-slate-400">
             <span>• СБП</span>
