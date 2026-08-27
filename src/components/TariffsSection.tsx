@@ -16,7 +16,6 @@ export const TariffsSection: React.FC = () => {
     <section id="tariffs" className="py-24 relative overflow-hidden bg-black/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
             <CreditCard className="w-3.5 h-3.5 text-white" />
@@ -30,7 +29,6 @@ export const TariffsSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Tariffs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {tariffs.map((plan) => {
             const isFeatured = !!plan.isPopular;
@@ -45,7 +43,6 @@ export const TariffsSection: React.FC = () => {
                     : ''
                 }`}
               >
-                {/* Popular Badge */}
                 {isFeatured && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap">
                     <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold uppercase tracking-wider text-black bg-white px-3.5 py-1 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.3)]">
@@ -56,7 +53,6 @@ export const TariffsSection: React.FC = () => {
                 )}
 
                 <div>
-                  {/* Card Title & Duration Badge */}
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <h3 className="text-xl font-bold text-white">
                       {plan.title}
@@ -66,7 +62,6 @@ export const TariffsSection: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Plan Info */}
                   <div className="mb-6 pb-6 border-b border-white/10">
                     <div className="text-sm font-semibold text-white font-mono">
                       {meta.periodLabel}
@@ -76,7 +71,6 @@ export const TariffsSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Features List */}
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feat, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-2.5 text-xs text-slate-300">
@@ -89,7 +83,6 @@ export const TariffsSection: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Buy Button -> Directly in Telegram Bot */}
                 <a
                   href={`https://t.me/HikkaVPNbot?start=plan_${plan.id}`}
                   target="_blank"
@@ -109,7 +102,6 @@ export const TariffsSection: React.FC = () => {
           })}
         </div>
 
-        {/* Security / Payment guarantee notes */}
         <div className="mt-12 liquid-glass-subtle rounded-2xl p-5 border border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-300">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-white" />

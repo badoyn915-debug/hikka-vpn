@@ -19,7 +19,6 @@ export const ProtocolsSection: React.FC = () => {
     <section id="protocols" className="py-24 relative overflow-hidden bg-black/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
             <Cpu className="w-3.5 h-3.5 text-white" />
@@ -33,7 +32,6 @@ export const ProtocolsSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Protocols Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {protocols.map((proto) => {
             const isSelected = selectedProtocol.id === proto.id;
@@ -46,7 +44,6 @@ export const ProtocolsSection: React.FC = () => {
                   isSelected ? 'border-white/40 bg-white/[0.06] shadow-[0_0_25px_rgba(255,255,255,0.1)]' : ''
                 }`}
               >
-                {/* Popular Badge */}
                 {proto.isPopular && (
                   <div className="absolute -top-2.5 right-6 z-10">
                     <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase text-white bg-[#101318] border border-white/30 px-2.5 py-0.5 rounded-full shadow">
@@ -56,7 +53,6 @@ export const ProtocolsSection: React.FC = () => {
                 )}
 
                 <div>
-                  {/* Top: Name & Shortcode */}
                   <div className="flex items-center justify-between gap-3 mb-3">
                     <div>
                       <h3 className="text-lg font-bold text-white transition-colors">
@@ -72,12 +68,10 @@ export const ProtocolsSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Description */}
                   <p className="text-xs text-slate-300 leading-relaxed font-light mb-5">
                     {proto.description}
                   </p>
 
-                  {/* Badges */}
                   <div className="flex flex-wrap gap-1.5 mb-6">
                     {proto.badges.map((b) => (
                       <span
@@ -89,10 +83,7 @@ export const ProtocolsSection: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Performance Indicators */}
                   <div className="space-y-2.5 bg-black/40 rounded-xl p-3 border border-white/10 mb-5">
-                    
-                    {/* Speed Bar */}
                     <div>
                       <div className="flex justify-between text-[11px] font-mono text-slate-300 mb-1">
                         <span>Скорость (Speed):</span>
@@ -106,7 +97,6 @@ export const ProtocolsSection: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Stability Bar */}
                     <div>
                       <div className="flex justify-between text-[11px] font-mono text-slate-300 mb-1">
                         <span>Стабильность (Stability):</span>
@@ -120,7 +110,6 @@ export const ProtocolsSection: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Anti-DPI Bar */}
                     <div>
                       <div className="flex justify-between text-[11px] font-mono text-slate-300 mb-1">
                         <span>Обход DPI (Stealth):</span>
@@ -133,11 +122,9 @@ export const ProtocolsSection: React.FC = () => {
                         />
                       </div>
                     </div>
-
                   </div>
                 </div>
 
-                {/* Card Footer: Action linking to Telegram Bot */}
                 <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
                   <div className="text-slate-400 font-mono text-[11px]">
                     Порт: <span className="text-white">{proto.port}</span>
@@ -160,10 +147,8 @@ export const ProtocolsSection: React.FC = () => {
           })}
         </div>
 
-        {/* Protocol Deep-Dive Spec Panel */}
         <div className="liquid-glass rounded-2xl p-6 sm:p-8 border border-white/15">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
             <div className="lg:col-span-8">
               <div className="flex items-center gap-2.5 mb-2">
                 <span className="text-xs font-mono text-white uppercase tracking-wider font-semibold">
@@ -201,7 +186,6 @@ export const ProtocolsSection: React.FC = () => {
                 <span>Получить {activeProto.shortCode} в @HikkaVPNbot</span>
               </a>
             </div>
-
           </div>
         </div>
 

@@ -38,7 +38,6 @@ export const LocationsSection: React.FC = () => {
     <section id="servers" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
@@ -53,7 +52,6 @@ export const LocationsSection: React.FC = () => {
             </p>
           </div>
 
-          {/* Region Filters */}
           <div className="flex items-center gap-1.5 p-1.5 liquid-glass rounded-xl border border-white/10 overflow-x-auto max-w-full">
             {filters.map((tab) => (
               <button
@@ -74,7 +72,6 @@ export const LocationsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Server Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
           {filteredServers.map((server) => {
             const isSelected = selectedServer.id === server.id;
@@ -88,7 +85,6 @@ export const LocationsSection: React.FC = () => {
                   isSelected ? 'border-white/40 bg-white/[0.06] shadow-[0_0_25px_rgba(255,255,255,0.1)]' : ''
                 }`}
               >
-                {/* Russian Full Work Special Badge */}
                 {server.isSpecialRussia && (
                   <div className="absolute -top-2.5 right-4 z-20">
                     <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-white bg-[#101318] border border-white/30 px-2.5 py-0.5 rounded-full shadow-md">
@@ -97,7 +93,6 @@ export const LocationsSection: React.FC = () => {
                   </div>
                 )}
 
-                {/* Card Top: Flag, Country, Status */}
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div className="flex items-center gap-3">
@@ -120,7 +115,6 @@ export const LocationsSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Feature Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {server.features.slice(0, 2).map((feat, idx) => (
                       <span
@@ -133,10 +127,8 @@ export const LocationsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Card Bottom: Ping, Bandwidth, Connect Action to Bot */}
                 <div className="pt-3 border-t border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    {/* Ping Indicator Button */}
                     <button
                       onClick={(e) => handlePingTest(e, server.id)}
                       title="Проверить пинг"
@@ -153,7 +145,6 @@ export const LocationsSection: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Direct Bot Link */}
                   <a
                     href={`https://t.me/HikkaVPNbot?start=server_${server.id}`}
                     target="_blank"
@@ -171,7 +162,6 @@ export const LocationsSection: React.FC = () => {
           })}
         </div>
 
-        {/* Bottom Helper Note */}
         <div className="mt-8 liquid-glass-subtle rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border border-white/10">
           <div className="flex items-center gap-3 text-xs text-slate-300 text-center sm:text-left">
             <Shield className="w-4 h-4 text-white shrink-0" />

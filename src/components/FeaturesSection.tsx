@@ -33,7 +33,6 @@ export const FeaturesSection: React.FC = () => {
     <section className="py-24 relative overflow-hidden bg-black/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
             <Sparkles className="w-3.5 h-3.5 text-white" />
@@ -47,7 +46,6 @@ export const FeaturesSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Minimalist Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {features.map((item, idx) => (
             <div
@@ -55,7 +53,6 @@ export const FeaturesSection: React.FC = () => {
               className="liquid-glass-interactive rounded-2xl p-6 flex flex-col justify-between group hover:border-white/30 transition-all duration-300 relative overflow-hidden"
             >
               <div>
-                {/* Tech Code Index */}
                 <div className="flex items-center justify-between gap-2 mb-4">
                   <span className="text-[11px] font-mono tracking-wider text-slate-300 font-semibold">
                     {item.code}
@@ -65,18 +62,15 @@ export const FeaturesSection: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Title */}
                 <h3 className="text-lg font-bold text-white mb-2.5">
                   {item.title}
                 </h3>
 
-                {/* Description */}
                 <p className="text-xs text-slate-300 leading-relaxed font-light">
                   {item.description}
                 </p>
               </div>
 
-              {/* Minimal Bottom Indicator */}
               <div className="pt-4 mt-6 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
                 <span>ACTIVE STANDARD</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-white" />

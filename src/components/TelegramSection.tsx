@@ -116,7 +116,6 @@ export const TelegramSection: React.FC = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Context & Direct CTA */}
           <div className="lg:col-span-6">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
               <Send className="w-3.5 h-3.5 text-white" />
@@ -149,7 +148,6 @@ export const TelegramSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Main Bot CTA */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <a
                 href="https://t.me/HikkaVPNbot"
@@ -168,11 +166,9 @@ export const TelegramSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Interactive Liquid Glass Telegram Mockup */}
           <div className="lg:col-span-6">
             <div className="liquid-glass rounded-3xl p-4 sm:p-6 border border-white/10 shadow-2xl relative">
               
-              {/* Telegram App Header */}
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-white text-black font-extrabold flex items-center justify-center font-mono shadow-md">
@@ -193,7 +189,6 @@ export const TelegramSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Chat Body (Scrollable container) */}
               <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
                 {messages.map((msg) => {
                   const isBot = msg.sender === 'bot';
@@ -221,7 +216,6 @@ export const TelegramSection: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Inline Action Buttons */}
                       {msg.buttons && (
                         <div className="mt-2 space-y-1.5 w-full max-w-[90%] sm:max-w-[85%]">
                           {msg.buttons.map((row, rIdx) => (
@@ -243,7 +237,6 @@ export const TelegramSection: React.FC = () => {
                   );
                 })}
 
-                {/* Typing indicator */}
                 {isTyping && (
                   <div className="flex items-center gap-1 text-[11px] text-white font-mono px-2 py-1">
                     <span>Бот печатает</span>
@@ -254,7 +247,6 @@ export const TelegramSection: React.FC = () => {
                 )}
               </div>
 
-              {/* Mock Chat Input Footer */}
               <div className="mt-4 pt-3 border-t border-white/10 flex items-center gap-2">
                 <div className="flex-1 bg-black/50 rounded-xl px-3 py-2 text-xs text-slate-400 font-mono border border-white/10">
                   Нажмите любую кнопку выше для взаимодействия...

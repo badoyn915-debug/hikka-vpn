@@ -14,7 +14,6 @@ import {
   INITIAL_USER_PROFILE 
 } from './mockData';
 
-// Simulated delay helper
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 class VpnApiService {
@@ -24,12 +23,8 @@ class VpnApiService {
   private statusTelemetry: NetworkStatusTelemetry = { ...INITIAL_STATUS_TELEMETRY };
   private userProfile: UserProfile = { ...INITIAL_USER_PROFILE };
 
-  /**
-   * Fetch list of all VPN server locations
-   */
   async getServers(): Promise<ServerLocation[]> {
     await delay(200);
-    // Add realistic subtle jitter to pings on fetch
     return this.servers.map((srv) => ({
       ...srv,
       ping: Math.max(2, Math.round(srv.ping + (Math.random() * 4 - 2))),
@@ -37,9 +32,6 @@ class VpnApiService {
     }));
   }
 
-  /**
-   * Test live ping to a specific server
-   */
   async pingServer(serverId: string): Promise<{ serverId: string; ping: number; status: string }> {
     const srv = this.servers.find((s) => s.id === serverId);
     const basePing = srv ? srv.ping : 25;
@@ -52,28 +44,18 @@ class VpnApiService {
     };
   }
 
-  /**
-   * Fetch list of supported protocols
-   */
   async getProtocols(): Promise<ProtocolInfo[]> {
     await delay(150);
     return this.protocols;
   }
 
-  /**
-   * Fetch tariffs
-   */
   async getTariffs(): Promise<TariffPlan[]> {
     await delay(150);
     return this.tariffs;
   }
 
-  /**
-   * Fetch real-time telemetry and network health
-   */
   async getNetworkStatus(): Promise<NetworkStatusTelemetry> {
     await delay(180);
-    // Generate slight live fluctuations in traffic & latency
     const jitterLatency = Number((28.0 + (Math.random() * 1.5 - 0.75)).toFixed(1));
     const currentTraffic = Number((84.0 + (Math.random() * 5.0 - 2.5)).toFixed(1));
 
@@ -85,17 +67,11 @@ class VpnApiService {
     };
   }
 
-  /**
-   * Fetch user dashboard profile
-   */
   async getUserProfile(): Promise<UserProfile> {
     await delay(250);
     return this.userProfile;
   }
 
-  /**
-   * Connect to VPN tunnel
-   */
   async connect(serverId: string, protocolId: string): Promise<{
     success: boolean;
     ip: string;
@@ -103,7 +79,7 @@ class VpnApiService {
     connectedAt: string;
     sessionToken: string;
   }> {
-    await delay(900); // realistic handshake delay
+    await delay(900);
     const srv = this.servers.find((s) => s.id === serverId) || this.servers[2];
     return {
       success: true,
@@ -114,17 +90,11 @@ class VpnApiService {
     };
   }
 
-  /**
-   * Disconnect VPN tunnel
-   */
   async disconnect(): Promise<{ success: boolean }> {
     await delay(400);
     return { success: true };
   }
 
-  /**
-   * Remove a connected device
-   */
   async removeDevice(deviceId: string): Promise<ConnectedDevice[]> {
     await delay(300);
     this.userProfile.devices = this.userProfile.devices.filter((d) => d.id !== deviceId);
@@ -132,9 +102,6 @@ class VpnApiService {
     return this.userProfile.devices;
   }
 
-  /**
-   * Simulate tariff purchase
-   */
   async purchaseTariff(planId: string, paymentMethod: string): Promise<{
     success: boolean;
     orderId: string;

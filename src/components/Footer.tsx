@@ -8,7 +8,6 @@ export const Footer: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
           
-          {/* Brand Col */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
@@ -40,7 +39,6 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="md:col-span-3">
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white mb-4">
               Навигация
@@ -69,7 +67,6 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Technology & Protocols */}
           <div className="md:col-span-4">
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white mb-4">
               Технологии и Стандарты
@@ -96,7 +93,6 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Bottom copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-slate-400">
           <div>
             © 2026 Hikka VPN (@HikkaVPNbot). Все права защищены.

@@ -86,7 +86,6 @@ export const LiveStatusSection: React.FC = () => {
     <section id="status" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
@@ -110,13 +109,10 @@ export const LiveStatusSection: React.FC = () => {
           </button>
         </div>
 
-        {/* Large Liquid Glass Telemetry Hub Panel */}
         <div className="liquid-glass rounded-3xl p-6 sm:p-8 lg:p-10 border border-white/10 shadow-2xl relative overflow-hidden mb-8">
           
-          {/* Metric Cards Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
             
-            {/* Status 1: Network Health */}
             <div className="liquid-glass-subtle rounded-2xl p-4 sm:p-5 border border-white/10 flex flex-col justify-between">
               <div className="flex items-center justify-between text-slate-300 text-xs font-mono mb-3">
                 <span>Network Status</span>
@@ -131,7 +127,6 @@ export const LiveStatusSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Status 2: Active Servers */}
             <div className="liquid-glass-subtle rounded-2xl p-4 sm:p-5 border border-white/10 flex flex-col justify-between">
               <div className="flex items-center justify-between text-slate-300 text-xs font-mono mb-3">
                 <span>Активные серверы</span>
@@ -145,7 +140,6 @@ export const LiveStatusSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Status 3: Average Latency */}
             <div className="liquid-glass-subtle rounded-2xl p-4 sm:p-5 border border-white/10 flex flex-col justify-between">
               <div className="flex items-center justify-between text-slate-300 text-xs font-mono mb-3">
                 <span>Средний пинг (Latency)</span>
@@ -159,7 +153,6 @@ export const LiveStatusSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Status 4: Uptime */}
             <div className="liquid-glass-subtle rounded-2xl p-4 sm:p-5 border border-white/10 flex flex-col justify-between">
               <div className="flex items-center justify-between text-slate-300 text-xs font-mono mb-3">
                 <span>Uptime SLA</span>
@@ -175,7 +168,6 @@ export const LiveStatusSection: React.FC = () => {
 
           </div>
 
-          {/* Real-time Bandwidth & Traffic Canvas Chart */}
           <div className="liquid-glass-subtle rounded-2xl p-5 sm:p-6 border border-white/10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <div>
@@ -198,7 +190,6 @@ export const LiveStatusSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Canvas Graph */}
             <div className="w-full relative h-[140px]">
               <canvas ref={canvasRef} className="w-full h-full block" />
             </div>

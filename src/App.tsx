@@ -33,7 +33,6 @@ const MainContent: React.FC = () => {
 
       <Footer />
 
-      {/* Global Modals */}
       <CheckoutModal />
       <QrCodeModal />
       <SpeedtestModal />

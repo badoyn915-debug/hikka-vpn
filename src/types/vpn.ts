@@ -8,9 +8,9 @@ export interface ServerLocation {
   code: string;
   region: 'europe' | 'russia' | 'asia_usa';
   status: 'online' | 'maintenance' | 'optimal';
-  ping: number; // in ms
-  loadPercent: number; // 0-100
-  bandwidth: string; // e.g. "10 Gbps"
+  ping: number;
+  loadPercent: number;
+  bandwidth: string;
   protocols: string[];
   isSpecialRussia?: boolean;
   coordinates: {
@@ -25,10 +25,10 @@ export interface ProtocolInfo {
   name: string;
   shortCode: string;
   description: string;
-  securityRating: number; // 0-100
-  speedRating: number; // 0-100
-  stabilityRating: number; // 0-100
-  antiDpiRating: number; // 0-100
+  securityRating: number;
+  speedRating: number;
+  stabilityRating: number;
+  antiDpiRating: number;
   encryption: string;
   port: string;
   badges: string[];
@@ -55,11 +55,11 @@ export interface NetworkStatusTelemetry {
   statusText: string;
   totalServers: number;
   activeServers: number;
-  averageLatency: number; // ms
-  uptime: number; // e.g. 99.98
+  averageLatency: number;
+  uptime: number;
   totalBandwidthTbps: number;
   currentTrafficGbps: number;
-  packetLoss: number; // %
+  packetLoss: number;
   lastUpdated: string;
   trafficHistory: {
     time: string;

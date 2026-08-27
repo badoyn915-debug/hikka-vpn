@@ -72,7 +72,6 @@ export const SpeedtestModal: React.FC = () => {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-200">
       <div className="liquid-glass rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative text-center">
         
-        {/* Close */}
         <button
           onClick={() => setIsSpeedtestOpen(false)}
           className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-white/10 transition-colors"
@@ -80,7 +79,6 @@ export const SpeedtestModal: React.FC = () => {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header */}
         <div className="inline-flex items-center gap-1.5 text-xs font-mono text-white bg-white/10 border border-white/20 px-3 py-1 rounded-full mb-3">
           <Gauge className="w-3.5 h-3.5 text-white" />
           <span>NETWORK SPEED BENCHMARK</span>
@@ -93,7 +91,6 @@ export const SpeedtestModal: React.FC = () => {
           Узел: {selectedServer.code} • Канал: {selectedServer.bandwidth}
         </p>
 
-        {/* Speedometer Gauge Display */}
         <div className="relative my-4 flex flex-col items-center justify-center">
           
           <div className="relative w-56 h-56 rounded-full flex flex-col items-center justify-center liquid-glass border-2 border-white/20 shadow-[0_0_50px_rgba(255,255,255,0.06)]">
@@ -118,9 +115,7 @@ export const SpeedtestModal: React.FC = () => {
           </div>
         </div>
 
-        {/* Results Matrix */}
         <div className="grid grid-cols-3 gap-3 my-6">
-          {/* Ping */}
           <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/10 text-left">
             <div className="flex items-center gap-1 text-[10px] font-mono text-slate-300 mb-1">
               <Wifi className="w-3 h-3 text-white" />
@@ -134,7 +129,6 @@ export const SpeedtestModal: React.FC = () => {
             </div>
           </div>
 
-          {/* Download */}
           <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/10 text-left">
             <div className="flex items-center gap-1 text-[10px] font-mono text-slate-300 mb-1">
               <ArrowDown className="w-3 h-3 text-white" />
@@ -146,7 +140,6 @@ export const SpeedtestModal: React.FC = () => {
             <div className="text-[9px] font-mono text-slate-400">4K Ultra Ready</div>
           </div>
 
-          {/* Upload */}
           <div className="liquid-glass-subtle rounded-2xl p-3 border border-white/10 text-left">
             <div className="flex items-center gap-1 text-[10px] font-mono text-slate-300 mb-1">
               <ArrowUp className="w-3 h-3 text-white" />
@@ -159,7 +152,6 @@ export const SpeedtestModal: React.FC = () => {
           </div>
         </div>
 
-        {/* Action Button */}
         {stage === 'idle' || stage === 'done' ? (
           <button
             onClick={startTest}

@@ -23,7 +23,6 @@ interface AppContextType {
   currency: CurrencyType;
   setCurrency: (curr: CurrencyType) => void;
   
-  // Data
   servers: ServerLocation[];
   protocols: ProtocolInfo[];
   tariffs: TariffPlan[];
@@ -31,7 +30,6 @@ interface AppContextType {
   userProfile: UserProfile;
   isLoadingData: boolean;
 
-  // Connection State
   isConnected: boolean;
   isConnecting: boolean;
   selectedServer: ServerLocation;
@@ -42,7 +40,6 @@ interface AppContextType {
   liveDownloadMbps: number;
   liveUploadMbps: number;
 
-  // Actions
   setSelectedServer: (server: ServerLocation) => void;
   setSelectedProtocol: (protocol: ProtocolInfo) => void;
   toggleConnect: () => Promise<void>;
@@ -50,7 +47,6 @@ interface AppContextType {
   testServerPing: (serverId: string) => Promise<number>;
   removeUserDevice: (deviceId: string) => Promise<void>;
   
-  // Modals & Overlays
   checkoutPlan: TariffPlan | null;
   setCheckoutPlan: (plan: TariffPlan | null) => void;
   isQrModalOpen: boolean;
@@ -60,7 +56,6 @@ interface AppContextType {
   activeConfigServer: ServerLocation | null;
   setActiveConfigServer: (server: ServerLocation | null) => void;
 
-  // Toasts
   toasts: ToastMessage[];
   showToast: (title: string, message: string, type?: 'success' | 'info' | 'warning' | 'error') => void;
   removeToast: (id: string) => void;
@@ -72,7 +67,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('landing');
   const [currency, setCurrency] = useState<CurrencyType>('RUB');
 
-  // Core Data
   const [servers, setServers] = useState<ServerLocation[]>(INITIAL_SERVERS);
   const [protocols, setProtocols] = useState<ProtocolInfo[]>(INITIAL_PROTOCOLS);
   const [tariffs, setTariffs] = useState<TariffPlan[]>(INITIAL_TARIFFS);
@@ -80,24 +74,21 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [userProfile, setUserProfile] = useState<UserProfile>(INITIAL_USER_PROFILE);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
-  // Connection
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const [selectedServer, setSelectedServer] = useState<ServerLocation>(INITIAL_SERVERS[2]); // Default NL
-  const [selectedProtocol, setSelectedProtocol] = useState<ProtocolInfo>(INITIAL_PROTOCOLS[0]); // Default VLESS Reality
+  const [selectedServer, setSelectedServer] = useState<ServerLocation>(INITIAL_SERVERS[2]);
+  const [selectedProtocol, setSelectedProtocol] = useState<ProtocolInfo>(INITIAL_PROTOCOLS[0]);
   const [connectedServer, setConnectedServer] = useState<ServerLocation | null>(null);
   const [assignedIp, setAssignedIp] = useState<string>('');
   const [connectionDuration, setConnectionDuration] = useState<number>(0);
   const [liveDownloadMbps, setLiveDownloadMbps] = useState<number>(0);
   const [liveUploadMbps, setLiveUploadMbps] = useState<number>(0);
 
-  // Modals
   const [checkoutPlan, setCheckoutPlan] = useState<TariffPlan | null>(null);
   const [isQrModalOpen, setIsQrModalOpen] = useState<boolean>(false);
   const [isSpeedtestOpen, setIsSpeedtestOpen] = useState<boolean>(false);
   const [activeConfigServer, setActiveConfigServer] = useState<ServerLocation | null>(null);
 
-  // Toasts
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const showToast = (title: string, message: string, type: 'success' | 'info' | 'warning' | 'error' = 'info') => {
@@ -112,7 +103,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Initial load
   useEffect(() => {
     const fetchData = async () => {
       setIsLoadingData(true);
@@ -138,20 +128,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     fetchData();
   }, []);
 
-  // Periodic Telemetry polling simulation
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
         const updatedStatus = await vpnApi.getNetworkStatus();
         setStatusTelemetry(updatedStatus);
       } catch (e) {
-        // ignore
       }
     }, 12000);
     return () => clearInterval(interval);
   }, []);
 
-  // Connection timer and live speed fluctuations
   useEffect(() => {
     let timer: any;
     let speedInterval: any;
@@ -162,7 +149,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       }, 1000);
 
       speedInterval = setInterval(() => {
-        // Generate realistic high-speed traffic (180 - 750 Mbps)
         const baseDl = 320 + Math.random() * 420;
         const baseUl = 85 + Math.random() * 190;
         setLiveDownloadMbps(Math.round(baseDl * 10) / 10);

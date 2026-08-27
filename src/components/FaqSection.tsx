@@ -54,7 +54,6 @@ export const FaqSection: React.FC = () => {
     <section id="faq" className="py-24 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-white bg-white/5 border border-white/15 px-3 py-1 rounded-full mb-3">
             <HelpCircle className="w-3.5 h-3.5 text-white" />
@@ -68,7 +67,6 @@ export const FaqSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Search Input */}
         <div className="relative mb-8">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
@@ -80,7 +78,6 @@ export const FaqSection: React.FC = () => {
           />
         </div>
 
-        {/* Accordion List */}
         <div className="space-y-3.5">
           {filteredFaqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
@@ -114,7 +111,6 @@ export const FaqSection: React.FC = () => {
           })}
         </div>
 
-        {/* Telegram Help Footer */}
         <div className="mt-12 text-center text-xs text-slate-300">
           Остались вопросы? Напишите нам в Telegram-боте:{' '}
           <a

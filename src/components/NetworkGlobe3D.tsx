@@ -23,7 +23,6 @@ export const NetworkGlobe3D: React.FC = () => {
 
     const isMobile = window.innerWidth < 768;
 
-    // Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.z = isMobile ? 3.6 : 3.2;
@@ -41,11 +40,9 @@ export const NetworkGlobe3D: React.FC = () => {
     const globeGroup = new THREE.Group();
     scene.add(globeGroup);
 
-    // Initial tilt
     globeGroup.rotation.x = 0.2;
     globeGroup.rotation.y = -1.2;
 
-    // 1. Dark Base Globe Mesh
     const sphereGeo = new THREE.SphereGeometry(globeRadius, isMobile ? 32 : 48, isMobile ? 32 : 48);
     const sphereMat = new THREE.MeshPhongMaterial({
       color: 0x07080b,
@@ -59,7 +56,6 @@ export const NetworkGlobe3D: React.FC = () => {
     const baseGlobe = new THREE.Mesh(sphereGeo, sphereMat);
     globeGroup.add(baseGlobe);
 
-    // 2. Wireframe / Latitude Longitude Lines
     const wireGeo = new THREE.SphereGeometry(globeRadius * 1.002, 24, 16);
     const wireMat = new THREE.MeshBasicMaterial({
       color: 0x333a4d,
@@ -70,7 +66,6 @@ export const NetworkGlobe3D: React.FC = () => {
     const wireGlobe = new THREE.Mesh(wireGeo, wireMat);
     globeGroup.add(wireGlobe);
 
-    // Convert Lat/Lng to 3D Cartesian coordinates
     const latLngToVector3 = (lat: number, lng: number, radius: number): THREE.Vector3 => {
       const phi = (90 - lat) * (Math.PI / 180);
       const theta = (lng + 180) * (Math.PI / 180);
@@ -80,7 +75,6 @@ export const NetworkGlobe3D: React.FC = () => {
       return new THREE.Vector3(x, y, z);
     };
 
-    // 3. Server Nodes
     const serverNodes: { mesh: THREE.Mesh; server: ServerLocation; pos: THREE.Vector3 }[] = [];
     const nodeGeometry = new THREE.SphereGeometry(0.024, 16, 16);
     const nodeGlowGeo = new THREE.RingGeometry(0.028, 0.05, 16);
@@ -96,7 +90,6 @@ export const NetworkGlobe3D: React.FC = () => {
       nodeMesh.userData = { server };
       globeGroup.add(nodeMesh);
 
-      // Glow halo ring
       const haloMat = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         transparent: true,
@@ -111,7 +104,6 @@ export const NetworkGlobe3D: React.FC = () => {
       serverNodes.push({ mesh: nodeMesh, server, pos });
     });
 
-    // 4. Connecting Arcs & Flowing Pulses
     const hubConnections: [string, string][] = [
       ['ru-msk-01', 'nl-ams-01'],
       ['ru-msk-01', 'de-fra-01'],
@@ -164,7 +156,6 @@ export const NetworkGlobe3D: React.FC = () => {
       const arcLine = new THREE.Line(curveGeo, curveMat);
       globeGroup.add(arcLine);
 
-      // Packet
       const pMesh = new THREE.Mesh(pulseGeo, pulseMat);
       globeGroup.add(pMesh);
       pulsePackets.push({
@@ -175,7 +166,6 @@ export const NetworkGlobe3D: React.FC = () => {
       });
     });
 
-    // 5. Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
@@ -183,7 +173,6 @@ export const NetworkGlobe3D: React.FC = () => {
     dirLight1.position.set(5, 3, 5);
     scene.add(dirLight1);
 
-    // Mouse Drag & Raycasting
     let isDragging = false;
     let previousMousePosition = { x: 0, y: 0 };
     const raycaster = new THREE.Raycaster();
@@ -296,7 +285,6 @@ export const NetworkGlobe3D: React.FC = () => {
         className="w-full h-full cursor-grab active:cursor-grabbing"
       />
 
-      {/* Liquid Glass Tooltip on Server Hover */}
       {hoveredTooltip && (
         <div
           className="absolute pointer-events-none z-30 transition-all duration-150 transform -translate-x-1/2 -translate-y-full mb-3"
@@ -340,7 +328,6 @@ export const NetworkGlobe3D: React.FC = () => {
         </div>
       )}
 
-      {/* Interactive Legend Overlay */}
       <div className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-auto pointer-events-none z-10">
         <div className="liquid-glass-subtle rounded-xl px-3.5 py-2.5 flex items-center justify-between sm:justify-start gap-4 border border-white/10 backdrop-blur-md">
           <div className="flex items-center gap-2 text-xs text-white">

@@ -15,7 +15,6 @@ export const CheckoutModal: React.FC = () => {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-200">
       <div className="liquid-glass rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative">
         
-        {/* Close Button */}
         <button
           onClick={handleClose}
           className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-white/10 transition-colors"
@@ -24,7 +23,6 @@ export const CheckoutModal: React.FC = () => {
         </button>
 
         <div>
-          {/* Modal Header */}
           <div className="mb-6">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono text-white bg-white/10 border border-white/20 px-3 py-1 rounded-full mb-2">
               <Zap className="w-3.5 h-3.5 text-white" />
@@ -39,7 +37,6 @@ export const CheckoutModal: React.FC = () => {
             Все тарифы, моментальная выдача VLESS-ключей, выбор способов оплаты (СБП, Карты РФ, TON, USDT, Stars) и круглосуточная поддержка работают прямо в официальном боте <span className="text-white font-mono font-bold">@HikkaVPNbot</span>.
           </p>
 
-          {/* Direct Telegram Bot Action Button */}
           <a
             href={`https://t.me/HikkaVPNbot?start=plan_${checkoutPlan.id}`}
             target="_blank"

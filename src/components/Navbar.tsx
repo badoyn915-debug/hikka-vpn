@@ -39,7 +39,6 @@ export const Navbar: React.FC = () => {
               : 'bg-[#0d0f17]/60 backdrop-blur-md border border-white/6 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
           }`}
         >
-          {/* Brand Logo */}
           <a
             href="#hero"
             className="flex items-center gap-3 cursor-pointer group select-none"
@@ -63,7 +62,6 @@ export const Navbar: React.FC = () => {
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-1 bg-white/[0.02] border border-white/[0.05] rounded-xl px-2 py-1">
             {navLinks.map((item) => (
               <a
@@ -77,7 +75,6 @@ export const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* Action CTA: Telegram Bot */}
           <div className="hidden sm:flex items-center gap-3">
             <a
               href="https://t.me/HikkaVPNbot"
@@ -91,7 +88,6 @@ export const Navbar: React.FC = () => {
             </a>
           </div>
 
-          {/* Mobile Hamburger Button */}
           <div className="flex sm:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -103,7 +99,6 @@ export const Navbar: React.FC = () => {
           </div>
         </nav>
 
-        {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="sm:hidden mt-2 liquid-glass rounded-2xl p-4 border border-white/10 shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-3 duration-200">
             <div className="grid grid-cols-2 gap-2 mb-4">

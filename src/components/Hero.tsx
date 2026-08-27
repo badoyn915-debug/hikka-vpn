@@ -5,16 +5,13 @@ import { Send, Zap, ChevronRight, ArrowUpRight } from 'lucide-react';
 export const Hero: React.FC = () => {
   return (
     <section id="hero" className="relative min-h-[92vh] pt-28 sm:pt-36 pb-16 flex items-center overflow-hidden">
-      {/* Background Subtle Tech Grid */}
       <div className="absolute inset-0 bg-grid-subtle opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Typography & CTAs */}
           <div className="lg:col-span-6 flex flex-col items-start text-left z-20">
             
-            {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-subtle border border-white/20 mb-6 backdrop-blur-xl group">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               <span className="text-[11px] font-mono tracking-wider uppercase text-white font-semibold">
@@ -26,7 +23,6 @@ export const Hero: React.FC = () => {
               </span>
             </div>
 
-            {/* Main Headline (Pure Clean White Typography) */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12] mb-6 font-sans">
               Свободный интернет. <br />
               <span className="text-white">
@@ -34,14 +30,11 @@ export const Hero: React.FC = () => {
               </span>
             </h1>
 
-            {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light mb-8 max-w-xl">
               VPN с поддержкой нескольких протоколов, серверов в разных странах и обходом ограничений доступа.
             </p>
 
-            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
-              {/* Primary CTA */}
               <a
                 href="https://t.me/HikkaVPNbot?start=connect_vpn"
                 target="_blank"
@@ -53,7 +46,6 @@ export const Hero: React.FC = () => {
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
 
-              {/* Secondary CTA: Telegram */}
               <a
                 href="https://t.me/HikkaVPNbot"
                 target="_blank"
@@ -66,9 +58,7 @@ export const Hero: React.FC = () => {
               </a>
             </div>
 
-            {/* Sub-CTA Live Metric Pills */}
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-6 border-t border-white/10 w-full">
-              {/* Metric 1 */}
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_6px_#ffffff]" />
                 <span className="text-xs font-mono text-white">
@@ -76,7 +66,6 @@ export const Hero: React.FC = () => {
                 </span>
               </div>
 
-              {/* Metric 2 */}
               <div className="flex items-center gap-2">
                 <span className="text-slate-600">•</span>
                 <span className="text-xs font-mono text-white">
@@ -84,7 +73,6 @@ export const Hero: React.FC = () => {
                 </span>
               </div>
 
-              {/* Metric 3 */}
               <div className="flex items-center gap-2">
                 <span className="text-slate-600">•</span>
                 <span className="text-xs font-mono text-white">
@@ -95,7 +83,6 @@ export const Hero: React.FC = () => {
 
           </div>
 
-          {/* Right Column: 3D Globe Network Scene */}
           <div className="lg:col-span-6 relative flex items-center justify-center">
             <div className="w-full relative z-10">
               <NetworkGlobe3D />

@@ -19,9 +19,8 @@ export const QrCodeModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="liquid-glass rounded-3xl max-w-md w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative text-center">
+      <div className="liquid-glass rounded-3xl max-md w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative text-center">
         
-        {/* Close */}
         <button
           onClick={() => setIsQrModalOpen(false)}
           className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-white/10 transition-colors"
@@ -29,7 +28,6 @@ export const QrCodeModal: React.FC = () => {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Title */}
         <div className="inline-flex items-center gap-1.5 text-xs font-mono text-white bg-white/10 border border-white/20 px-3 py-1 rounded-full mb-3">
           <QrCode className="w-3.5 h-3.5 text-white" />
           <span>SCAN TO CONNECT</span>
@@ -42,7 +40,6 @@ export const QrCodeModal: React.FC = () => {
           Откройте камеру или VPN-клиент (Happ, Streisand, v2rayNG, Shadowrocket) и отсканируйте код.
         </p>
 
-        {/* QR Container */}
         <div className="relative mx-auto w-64 h-64 p-4 rounded-3xl bg-white/[0.04] border border-white/15 shadow-[0_0_40px_rgba(255,255,255,0.08)] flex items-center justify-center mb-6 overflow-hidden">
           
           <div className="bg-white p-3 rounded-2xl shadow-inner">
@@ -93,7 +90,6 @@ export const QrCodeModal: React.FC = () => {
           </div>
         </div>
 
-        {/* Copy config button */}
         <div className="flex gap-2">
           <button
             onClick={handleCopy}

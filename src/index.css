@@ -30,7 +30,6 @@
     color: #ffffff;
   }
 
-  /* Custom subtle scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -47,7 +46,6 @@
   }
 }
 
-/* Liquid Glass Utilities */
 .liquid-glass {
   background: rgba(14, 16, 22, 0.7);
   backdrop-filter: blur(16px);
@@ -79,7 +77,6 @@
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
 }
 
-/* Background Gradients & Grid */
 .bg-grid-subtle {
   background-size: 40px 40px;
   background-image: 

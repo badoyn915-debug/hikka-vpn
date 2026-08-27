@@ -29,7 +29,6 @@ const server = http.createServer((req, res) => {
   let cleanUrl = req.url.split('?')[0].split('#')[0];
   let filePath = path.join(DIST_DIR, cleanUrl === '/' ? 'index.html' : cleanUrl);
 
-  // If path doesn't exist or is directory, fallback to index.html (SPA routing)
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
     filePath = path.join(DIST_DIR, 'index.html');
   }
